@@ -106,7 +106,7 @@ Build & Run:
 |   |-- configs          # Configurations
 |   |-- validators       # Validators
 │   ├── routes.ts        # Routers
-│   └── index.ts        # Entry point
+│   └── index.ts         # Entry point
 ├── .env
 ├── package.json
 ├── tsconfig.json
