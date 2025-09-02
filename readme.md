@@ -11,8 +11,7 @@ This repository contains a **Node.js microservice** built with **TypeScript**, *
 - [Prerequisites](#prerequisites)  
 - [Installation](#installation)  
 - [Environment Variables](#environment-variables)  
-- [Running the Application](#running-the-application)  
-- [API Endpoints](#api-endpoints)  
+- [Running the Application](#running-the-application) 
 - [Folder Structure](#folder-structure)  
 - [License](#license)
 
@@ -56,3 +55,59 @@ This repository contains a **Node.js microservice** built with **TypeScript**, *
 
 ```bash
 git clone https://github.com/Sanhil143/Auth-Microservice.git
+cd nodejs-ts-auth-microservice
+npm install
+```
+---
+ 
+## Environment Variables
+
+Create a .env file in the root directory with the following:
+
+- APP_TITLE=Auth Microservice
+- APP_DESCRIPTION=Handle auth
+- MONGO_URI=mongodb://localhost:27017/authdb
+- REQUEST_LIMIT=100kb
+- PORT=3000
+- APP_ID=Auth Microservice
+- NODE_ENV=development
+- SCHEME=http
+- LOG_LEVEL=info
+- JWT_SECRET=auth_microservice_secret
+- JWT_EXPIRES_IN=1h
+- REFRESH_TOKEN_EXPIRES_IN=30d
+- SESSION_SECRET=auth_microservice_secret
+
+---
+
+## Running the Application
+
+Development (with hot reload):
+- npm run dev
+
+Build & Run:
+- npm run build
+- npm start
+
+
+## Folder Structure
+
+.
+├── server
+│   |-- api    
+|   |   ├── controllers      # API controllers
+│   |   ├── routers          # Express routes
+│   |   ├── services         # Business logic & token services
+|   |   └-- server.ts        # Express app
+|   ├── models           # Mongoose models
+│   ├── middlewares      # Auth middlewares
+│   ├── utils            # Helpers (logger, error handling)
+|   |-- interfaces       # Interfaces
+|   |-- configs          # Configurations
+|   |-- validators       # Validators
+│   ├── routes.ts        # Routers
+│   └── index.ts        # Entry point
+├── .env
+├── package.json
+├── tsconfig.json
+└── README.md
