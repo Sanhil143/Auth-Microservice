@@ -1,5 +1,14 @@
 import os from "os";
 import l from "./logger.util";
+
+
+/**
+ * Logs a welcome message to the console with server details and Swagger UI path.
+ * @param {number|string} port - The port number the server is running on.
+ * @param {string} dbName - The name of the MongoDB database.
+ * @param {string} dbHost - The host name of the MongoDB server.
+ * @returns {() => void} A function that logs the welcome message when called.
+ */
 export const welcome =
   (port: number | string, dbName: string, dbHost: string) => () => {
     const hostname = os.hostname();

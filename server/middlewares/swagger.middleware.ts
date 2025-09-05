@@ -3,6 +3,10 @@ import swaggerUi from "swagger-ui-express";
 import os from "os";
 import { Application} from "express";
 
+/**
+ * Set up swagger documentation for the API
+ * @param {Application} app - the Express.js app
+ */
 export const setupSwagger = (app: Application) => {
   const hostname = os.hostname();
   const options = {

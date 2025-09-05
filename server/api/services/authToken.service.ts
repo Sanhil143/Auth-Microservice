@@ -8,6 +8,12 @@ import l from "../../utils/logger.util";
 import ms from "ms";
 
 class AuthTokenService {
+  /**
+   * Refreshes an access token given a valid, non-revoked refresh token.
+   * @param refreshTokenId - The ID of the refresh token to use.
+   * @returns An object containing a new access token and a new refresh token.
+   * @throws Will throw an error if the refresh token is invalid or revoked.
+   */
   async refreshToken(refreshTokenId: string): Promise<IRefreshResponse> {
     l.info(`${this.constructor.name}.refreshToken()`);
     // Find valid, non-revoked token
@@ -49,6 +55,11 @@ class AuthTokenService {
     return { accessToken, refreshTokenId: newRefreshId };
   }
 
+  /**
+   * Revokes a refresh token, effectively logging out the user.
+   * @param refreshTokenId - The ID of the refresh token to revoke.
+   * @returns An object indicating the success of the operation and a message.
+   */
   async logout(
     refreshTokenId: string
   ): Promise<{ status: boolean; message?: string }> {

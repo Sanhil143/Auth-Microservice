@@ -7,7 +7,8 @@ import mongoose from "mongoose";
 import l from "../utils/logger.util";
 import { connectDB } from "../configs/dbConfig";
 import { welcome } from "../utils/startupMessage.util";
-import { setupSwagger } from "../configs/swagger";
+import { setupSwagger } from "../middlewares/swagger.middleware";
+import { globalRateLimiter } from "../middlewares/apiRateLimiter.middleware";
 
 const app: Application = express();
 
@@ -24,6 +25,7 @@ export default class ExpressServer {
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || "100kb" }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(cors());
+    app.use(globalRateLimiter);
     setupSwagger(app);
   }
   router(routes: any) {

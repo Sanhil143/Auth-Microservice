@@ -9,6 +9,14 @@ import { ILoginResponse } from "../../interfaces/login.interface";
 import l from "../../utils/logger.util";
 
 class AuthService {
+  /**
+   * Registers a new user with the given email, name, and password.
+   * The password is hashed using bcrypt before being stored.
+   * @param email - The email of the new user.
+   * @param name - The name of the new user.
+   * @param password - The password of the new user.
+   * @returns A newly created IUser document.
+   */
   async register(
     email: string,
     name: string,
@@ -26,6 +34,14 @@ class AuthService {
     return createUser;
   }
 
+  /**
+   * Authenticates a user given their email and password.
+   * If the credentials are invalid, it throws an error.
+   * If the credentials are valid, it returns a new access token and a refresh token.
+   * @param email - The email of the user to login.   
+   * @param password - The password of the user to login.
+   * @returns An object containing the access token and the refresh token.
+   */
   async login(email: string, password: string): Promise<ILoginResponse> {
     l.info(`${this.constructor.name}.login()`);
     const userData: IUser | null = await user.findOne({ email });

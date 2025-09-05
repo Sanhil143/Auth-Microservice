@@ -1,5 +1,6 @@
 import express from "express";
 import controller from "../controllers/auth.controller";
+import { authRateLimiter } from "../../middlewares/apiRateLimiter.middleware";
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.post("/signup", controller.register);
  *       200:
  *         description: User logged in successfully
  */
-router.post("/login", controller.login);
+router.post("/login",authRateLimiter, controller.login);
 
 
 export default router;
