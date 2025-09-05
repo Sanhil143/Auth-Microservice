@@ -23,7 +23,7 @@ export const setupSwagger = (app: Application) => {
         },
       ],
     },
-    apis: ["./server/api/routers/*.ts"],
+    apis: ["./server/api/routes/*.ts"],
   };
 
   const swaggerSpec = swaggerJsdoc(options);
