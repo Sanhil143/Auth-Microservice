@@ -55,22 +55,7 @@ class AuthTokenService {
     return { accessToken, refreshTokenId: newRefreshId };
   }
 
-  /**
-   * Revokes a refresh token, effectively logging out the user.
-   * @param refreshTokenId - The ID of the refresh token to revoke.
-   * @returns An object indicating the success of the operation and a message.
-   */
-  async logout(
-    refreshTokenId: string
-  ): Promise<{ status: boolean; message?: string }> {
-    l.info(`${this.constructor.name}.logout()`);
-    const tokenDoc = await authToken.findOne({ tokenId: refreshTokenId });
-    if (tokenDoc) {
-      tokenDoc.revoked = true;
-      await tokenDoc.save();
-    }
-    return { status: true, message: "logout successfully" };
-  }
+  
 }
 
 export default new AuthTokenService();

@@ -28,5 +28,17 @@ router.post("/signup", controller.register);
  */
 router.post("/login",authRateLimiter, controller.login);
 
+/**
+ * @openapi
+ * /auth/logout:
+ *   post:
+ *     summary: Logout user
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: User logged out successfully
+ */
+router.post("/logout", controller.logout);
+
 
 export default router;

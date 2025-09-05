@@ -15,16 +15,4 @@ const router = express.Router();
  */
 router.post("/referesh", controller.refresh);
 
-/**
- * @openapi
- * /authToken/logout:
- *   post:
- *     summary: Logout user
- *     tags: [AuthToken]
- *     responses:
- *       200:
- *         description: User logged out successfully
- */
-router.post("/logout", controller.logout);
-
 export default router;

@@ -119,4 +119,4 @@ MIT License
 
 Note: This service is modular and scalable, ideal for integration into larger systems or as a standalone authentication service.
 
-This is now a **fully complete single README file** including installation, environment setup, endpoints, folder structure, and license.  
+This is now a **fully complete single README file** including installation, environment setup, folder structure, and license.  

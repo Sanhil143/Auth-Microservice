@@ -19,25 +19,6 @@ export class AuthTokenController {
       }
     }
   }
-
-  async logout(req: Request, res: Response): Promise<void> {
-    try {
-      const { refreshTokenId } = req.body;
-      if (!refreshTokenId) {
-        res.status(400).json({ error: "Refresh token is required" });
-        return;
-      }
-
-      const result = await AuthTokenService.logout(refreshTokenId);
-      res.status(200).json(result);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        res.status(400).json({ error: err.message });
-      } else {
-        res.status(400).json({ error: "Unknown error occurred" });
-      }
-    }
-  }
 }
 
 export default new AuthTokenController();
