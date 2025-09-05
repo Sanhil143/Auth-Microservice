@@ -120,5 +120,3 @@ MIT License
 Note: This service is modular and scalable, ideal for integration into larger systems or as a standalone authentication service.
 
 This is now a **fully complete single README file** including installation, environment setup, endpoints, folder structure, and license.  
-
-If you want, I can also create a **ready-to-use single TypeScript file skeleton** for **register, login, logout, and refresh token**
