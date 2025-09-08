@@ -44,7 +44,7 @@ export default class ExpressServer {
       const dbName = mongoose.connection.name;
       const dbHost = mongoose.connection.host;
       // Start server
-      http.createServer(app).listen(port, welcome(port, dbName, dbHost));
+      http.createServer(app).listen(port, welcome(dbName, dbHost));
       return app;
     } catch (err) {
       l.error(err);

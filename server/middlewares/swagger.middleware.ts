@@ -17,7 +17,7 @@ export const setupSwagger = (app: Application) => {
       },
       servers: [
         {
-          url: `${process.env.SCHEME}://${process.env.HOST}/api/v1`,
+          url: `${process.env.SCHEME}://${process.env.HOST}/auth/api/v1`,
         },
       ],
     },
@@ -26,8 +26,8 @@ export const setupSwagger = (app: Application) => {
 
   const swaggerSpec = swaggerJsdoc(options);
 
-  app.use("/api/v1/swagger/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-   app.get("/api/v1/swagger/json", (_req, res) => {
+  app.use("/auth/api/v1/swagger/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+   app.get("/auth/api/v1/swagger/json", (_req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpec);
   });
