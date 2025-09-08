@@ -8,7 +8,7 @@ import l from "./logger.util";
  * @returns {() => void} A function that logs the welcome message when called.
  */
 export const welcome =
-  (dbName: string, dbHost: string) => () => {
+  (dbName: string, dbHost: string): () => void => () => {
     const hostUrl = `${process.env.SCHEME}://${process.env.HOST}/auth/api/v1`; 
 
     l.info(`Server running in ${process.env.NODE_ENV} @: ${process.env.HOST}`);
