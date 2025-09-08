@@ -1,6 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import os from "os";
 import { Application} from "express";
 
 /**
@@ -8,7 +7,6 @@ import { Application} from "express";
  * @param {Application} app - the Express.js app
  */
 export const setupSwagger = (app: Application) => {
-  const hostname = os.hostname();
   const options = {
     definition: {
       openapi: "3.0.0",
@@ -19,7 +17,7 @@ export const setupSwagger = (app: Application) => {
       },
       servers: [
         {
-          url: `${process.env.SCHEME}://${hostname}:${process.env.PORT || 3000}/api/v1`,
+          url: `${process.env.SCHEME}://${process.env.HOST}/api/v1`,
         },
       ],
     },

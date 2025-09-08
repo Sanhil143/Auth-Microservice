@@ -15,6 +15,7 @@ const app: Application = express();
 export default class ExpressServer {
   private routes: any;
   constructor() {
+    app.set("trust proxy", 1)
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || "100kb" }));
     app.use(
       bodyParser.urlencoded({
