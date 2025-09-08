@@ -33,7 +33,7 @@ export default class ExpressServer {
     this.routes = routes;
     return this;
   }
-  async listen(port: number | string = process.env.PORT || 3000) {
+  async listen(port: number | string = process.env.PORT!) {
     try {
       // Connect MongoDB first
       await connectDB();

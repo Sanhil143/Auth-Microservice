@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: auth-app
+    container_name: auth-micro-app
     restart: always
     ports:
       - "3000:3000"
