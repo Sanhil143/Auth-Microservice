@@ -8,7 +8,6 @@ import rateLimit from 'express-rate-limit';
  * @param {number} limit - The max number of requests per IP within the given time window
  * @param {string} [message] - The message to be sent when rate limit is exceeded
  */
-/*******  28dd5fc2-a305-4c7c-aa61-c64b8e96261e  *******/  
 export function apiRateLimiter(windowMs: number, limit: number,message:string) {
   return rateLimit({
     windowMs: windowMs, // time window in milliseconds
