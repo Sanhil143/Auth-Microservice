@@ -4,6 +4,7 @@ import { user } from "../../models/user.model";
 import { signAccessToken } from "../../utils/jwt.util";
 import { v4 as uuidv4 } from "uuid";
 import { IRefreshResponse } from "../../interfaces/authToken.interface";
+import SessionService from "./session.service";
 import l from "../../utils/logger.util";
 import ms from "ms";
 
@@ -38,13 +39,18 @@ class AuthTokenService {
     const expiresMs = ms(expiresInStr as ms.StringValue);
     // Create new refresh token
     const newRefreshId = uuidv4();
-    await authToken.create({
+    const newTokenDoc = await authToken.create({
       tokenId: newRefreshId,
       userId: userData._id,
-      createdAt: new Date(),
-      expiresAt: new Date(Date.now() + expiresMs), // 30 days
+      expiresAt: new Date(Date.now() + expiresMs),
       revoked: false,
     });
+
+    // Update session to point to new auth token (same session, rotated token)
+    await SessionService.updateAuthToken(
+      tokenDoc._id as Types.ObjectId,
+      newTokenDoc._id as Types.ObjectId
+    );
 
     // Create new access token
     const accessToken = signAccessToken(

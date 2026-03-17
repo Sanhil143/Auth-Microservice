@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { user } from "../../models/user.model";
 import { authToken } from "../../models/authToken.model";
 import { hashPassword, comparePassword } from "../../utils/hash.util";
@@ -6,7 +7,9 @@ import { v4 as uuidv4 } from "uuid";
 import { IUser } from "../../interfaces/user.interface";
 import { Types } from "mongoose";
 import { ILoginResponse } from "../../interfaces/login.interface";
+import SessionService from "./session.service";
 import l from "../../utils/logger.util";
+import ms from "ms";
 
 class AuthService {
   /**
@@ -38,11 +41,17 @@ class AuthService {
    * Authenticates a user given their email and password.
    * If the credentials are invalid, it throws an error.
    * If the credentials are valid, it returns a new access token and a refresh token.
-   * @param email - The email of the user to login.   
+   * Creates a session linked to the auth token for session management.
+   * @param email - The email of the user to login.
    * @param password - The password of the user to login.
+   * @param req - Express request (optional, for session metadata)
    * @returns An object containing the access token and the refresh token.
    */
-  async login(email: string, password: string): Promise<ILoginResponse> {
+  async login(
+    email: string,
+    password: string,
+    req?: Request
+  ): Promise<ILoginResponse> {
     l.info(`${this.constructor.name}.login()`);
     const userData: IUser | null = await user.findOne({ email });
     if (!userData) throw new Error("Invalid credentials");
@@ -55,13 +64,24 @@ class AuthService {
     );
 
     const refreshId: string = uuidv4();
+    const expiresInStr = process.env.REFRESH_TOKEN_EXPIRES_IN || "30d";
+    const expiresMs = ms(expiresInStr as ms.StringValue);
 
-    await authToken.create({
+    const tokenDoc = await authToken.create({
       tokenId: refreshId,
       userId: userData._id,
-      expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+      expiresAt: new Date(Date.now() + expiresMs),
       revoked: false,
     });
+
+    if (req) {
+      await SessionService.create(
+        userData._id as Types.ObjectId,
+        tokenDoc._id as Types.ObjectId,
+        req,
+        expiresInStr
+      );
+    }
 
     return { accessToken, refreshTokenId: refreshId };
   }

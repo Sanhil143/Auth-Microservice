@@ -20,6 +20,15 @@ export const setupSwagger = (app: Application) => {
           url: `${process.env.SCHEME}://${process.env.HOST}/auth/api/v1`,
         },
       ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
+      },
     },
     apis: ["./server/api/routes/*.ts"],
   };
