@@ -10,7 +10,7 @@ import ms from "ms";
 
 class AuthTokenService {
   /**
-   * Refreshes an access token given a valid, non-revoked refresh token.
+   * Refreshes an access token given a valid, non-revoked, non-expired refresh token.
    * @param refreshTokenId - The ID of the refresh token to use.
    * @returns An object containing a new access token and a new refresh token.
    * @throws Will throw an error if the refresh token is invalid or revoked.
@@ -23,8 +23,14 @@ class AuthTokenService {
       revoked: false,
     });
 
-    if (!tokenDoc || tokenDoc.expiresAt < new Date()) {
+    if (!tokenDoc) {
       throw new Error("Invalid refresh token");
+    }
+    if (tokenDoc.revoked) {
+      throw new Error("Refresh token has been revoked");
+    }
+    if (tokenDoc.expiresAt < new Date()) {
+      throw new Error("Refresh token expired. Please login again.");
     }
 
     // Get user

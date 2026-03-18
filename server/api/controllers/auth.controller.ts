@@ -35,13 +35,16 @@ class AuthController {
 
   async logout(req: Request, res: Response): Promise<void> {
     try {
-      const { refreshTokenId } = req.body;
+      const { refreshTokenId, terminateAll } = req.body;
       if (!refreshTokenId) {
         res.status(400).json({ error: "Refresh token is required" });
         return;
       }
 
-      const result = await AuthService.logout(refreshTokenId);
+      const result = await AuthService.logout(
+        refreshTokenId,
+        terminateAll === true
+      );
       res.status(200).json(result);
     } catch (err: unknown) {
       if (err instanceof Error) {

@@ -1,13 +1,13 @@
 import { Request } from "express";
 import { user } from "../../models/user.model";
 import { authToken } from "../../models/authToken.model";
+import SessionService from "./session.service";
 import { hashPassword, comparePassword } from "../../utils/hash.util";
 import { signAccessToken } from "../../utils/jwt.util";
 import { v4 as uuidv4 } from "uuid";
 import { IUser } from "../../interfaces/user.interface";
 import { Types } from "mongoose";
 import { ILoginResponse } from "../../interfaces/login.interface";
-import SessionService from "./session.service";
 import l from "../../utils/logger.util";
 import ms from "ms";
 
@@ -87,20 +87,31 @@ class AuthService {
   }
 
   /**
-   * Revokes a refresh token, effectively logging out the user.
-   * @param refreshTokenId - The ID of the refresh token to revoke.
+   * Logs out the user. Optionally terminates all sessions.
+   * @param refreshTokenId - The ID of the refresh token (identifies current session).
+   * @param terminateAll - If true, revokes all sessions for the user (logout from everywhere).
    * @returns An object indicating the success of the operation and a message.
    */
   async logout(
-    refreshTokenId: string
-  ): Promise<{ status: boolean; message?: string }> {
+    refreshTokenId: string,
+    terminateAll: boolean = false
+  ): Promise<{ status: boolean; message: string }> {
     l.info(`${this.constructor.name}.logout()`);
     const tokenDoc = await authToken.findOne({ tokenId: refreshTokenId });
-    if (tokenDoc) {
-      tokenDoc.revoked = true;
-      await tokenDoc.save();
+    if (!tokenDoc) {
+      return { status: true, message: "Already logged out" };
     }
-    return { status: true, message: "logout successfully" };
+
+    if (terminateAll) {
+      const userId = (tokenDoc.userId as Types.ObjectId).toString();
+      await SessionService.terminateAll(userId);
+      return { status: true, message: "Logged out from all devices successfully" };
+    }
+
+    tokenDoc.revoked = true;
+    await tokenDoc.save();
+
+    return { status: true, message: "Logged out successfully" };
   }
 }
 

@@ -29,3 +29,14 @@ export function signAccessToken(userId: string, tokenVersion: number) {
 export function verifyAccessToken(token: string) {
   return jwt.verify(token, process.env.JWT_SECRET!);
 }
+
+/**
+ * Verifies the access token but allows expired tokens (e.g. for refresh flow).
+ * @param token - The access token to verify.
+ * @returns The decoded payload (userId, tokenVersion) if signature is valid.
+ */
+export function verifyAccessTokenIgnoreExpiry(token: string) {
+  return jwt.verify(token, process.env.JWT_SECRET!, {
+    ignoreExpiration: true,
+  }) as { userId: string; tokenVersion: number };
+}

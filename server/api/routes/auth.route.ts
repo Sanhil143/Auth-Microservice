@@ -32,11 +32,34 @@ router.post("/login",authRateLimiter, controller.login);
  * @openapi
  * /auth/logout:
  *   post:
- *     summary: Logout user
+ *     summary: Logout user (optionally from all devices)
  *     tags: [Auth]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [refreshTokenId]
+ *             properties:
+ *               refreshTokenId:
+ *                 type: string
+ *                 description: Refresh token from login
+ *               terminateAll:
+ *                 type: boolean
+ *                 default: false
+ *                 description: If true, logout from all devices (terminate all sessions)
+ *           examples:
+ *             logoutCurrent:
+ *               summary: Logout from current device only
+ *               value: { "refreshTokenId": "uuid-from-login" }
+ *             logoutEverywhere:
+ *               summary: Logout from all devices
+ *               value: { "refreshTokenId": "uuid-from-login", "terminateAll": true }
  *     responses:
  *       200:
- *         description: User logged out successfully
+ *         description: Logged out successfully
+ *       400:
+ *         description: Refresh token is required
  */
 router.post("/logout", controller.logout);
 
