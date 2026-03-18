@@ -110,18 +110,12 @@ class SessionService {
     userId: string
   ): Promise<{ status: boolean; message: string }> {
     l.info(`${this.constructor.name}.terminateAll()`);
-    const activeSessions = await session.find({
-      userId: new Types.ObjectId(userId),
-      isActive: true,
-    });
-    const authTokenIds = activeSessions.map((s) => s.authTokenId);
-
     await authToken.updateMany(
-      { _id: { $in: authTokenIds } },
+      { userId: new Types.ObjectId(userId) },
       { $set: { revoked: true } }
     );
     await session.updateMany(
-      { userId: new Types.ObjectId(userId), isActive: true },
+      { userId: new Types.ObjectId(userId) },
       { $set: { isActive: false } }
     );
 

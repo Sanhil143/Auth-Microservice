@@ -4,7 +4,7 @@ import AuthTokenService from "../services/authToken.service";
 export class AuthTokenController {
   async refresh(req: Request, res: Response): Promise<void> {
     try {
-      const { refreshTokenId } = req.body; // client se aayega
+      const { refreshTokenId } = req.body;
       if (!refreshTokenId) {
         res.status(400).json({ error: "Refresh token is required" });
         return;

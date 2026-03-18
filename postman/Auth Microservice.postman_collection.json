@@ -1,0 +1,953 @@
+{
+	"info": {
+		"_postman_id": "285bc70c-44a1-4f84-8161-0ad80e0ea197",
+		"name": "Auth Microservice",
+		"description": "API collection for Auth Microservice - Auth, AuthToken, and Session endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24846977",
+		"_collection_link": "https://www.postman.com/sanhil143/workspace/882d6e8d-e0db-4c9b-bd59-6be3bf96fc13/collection/24846977-285bc70c-44a1-4f84-8161-0ad80e0ea197?action=share&source=collection_link&creator=24846977"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register (Signup)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"Aashu@gmail.com\",\n  \"name\": \"Aashu Rai\",\n  \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "Register a new user"
+					},
+					"response": [
+						{
+							"name": "Register (Signup)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"Aashu@gmail.com\",\n  \"name\": \"Aashu Rai\",\n  \"password\": \"123456\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "28"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "6"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25-inHx9QHfb4y5yxLvGXbcBtCaTFg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:36:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"userId\": \"69ba47ebe4d093c097a364f5\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    if (json.accessToken) {",
+									"        pm.collectionVariables.set('accessToken', json.accessToken);",
+									"    }",
+									"    if (json.refreshTokenId) {",
+									"        pm.collectionVariables.set('refreshTokenId', json.refreshTokenId);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"Sanhil@gmail.com\",\n  \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login and get access token + refresh token. Tokens are auto-saved to collection variables."
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"Sanhil@gmail.com\",\n  \"password\": \"123456\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "5;w=600"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "5"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "600"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "273"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"111-kArFyZ8/7Psw1V6D1kwhOfclK5c\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:09:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJiM2Q3ZTQwNTQ2MGNjMWMyYzcyZTIiLCJ0b2tlblZlcnNpb24iOjAsImlhdCI6MTc3MzgxNDE5NywiZXhwIjoxNzczODE3Nzk3fQ.hx0OFG0HG1QnfRR9v8NwkrO8rGqciCY8Li_WPSNm5XY\",\n    \"refreshTokenId\": \"e50492f2-33f4-46f2-93ca-48c997f84da4\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout (current device)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshTokenId\": \"e50492f2-33f4-46f2-93ca-48c997f84da4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout from current device only"
+					},
+					"response": [
+						{
+							"name": "Logout (current device)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"refreshTokenId\": \"e50492f2-33f4-46f2-93ca-48c997f84da4\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "29"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "51"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"33-9iMwTpFW7jLUPqqnPINCg0Pzyc0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:29:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Logged out successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout (all devices)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshTokenId\": \"007431f7-7e90-4ee2-98dc-9e5c8dab0187\",\n  \"terminateAll\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout from all devices - terminates all sessions"
+					},
+					"response": [
+						{
+							"name": "Logout (all devices)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"refreshTokenId\": \"007431f7-7e90-4ee2-98dc-9e5c8dab0187\",\n  \"terminateAll\": true\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "29"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"44-7yQpwbufNfydq5xMR7YbnMLGCXA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:31:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Logged out from all devices successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AuthToken",
+			"item": [
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    if (json.accessToken) {",
+									"        pm.collectionVariables.set('accessToken', json.accessToken);",
+									"    }",
+									"    if (json.refreshTokenId) {",
+									"        pm.collectionVariables.set('refreshTokenId', json.refreshTokenId);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshTokenId\": \"e50492f2-33f4-46f2-93ca-48c997f84da4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/authToken/referesh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"authToken",
+								"referesh"
+							]
+						},
+						"description": "Refresh access token. Uses refresh token from login. If expired, login again."
+					},
+					"response": [
+						{
+							"name": "Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"refreshTokenId\": \"e50492f2-33f4-46f2-93ca-48c997f84da4\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/authToken/referesh",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"authToken",
+										"referesh"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "28"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "32"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "273"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"111-VQl7dW6pj0fNWBcQLFPdHtnX7IM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:10:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJiM2Q3ZTQwNTQ2MGNjMWMyYzcyZTIiLCJ0b2tlblZlcnNpb24iOjAsImlhdCI6MTc3MzgxNDIyNSwiZXhwIjoxNzczODE3ODI1fQ.A9D62anGPQ1MLYfQpTQfb4l_GIaLjhVwdcPg-FsCHFY\",\n    \"refreshTokenId\": \"0cc46e9c-8f0e-45e4-8065-bb058110bd37\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "List Sessions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sessions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sessions"
+							]
+						},
+						"description": "List all active sessions for the current user. Requires Bearer token."
+					},
+					"response": [
+						{
+							"name": "List Sessions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sessions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "27"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "48"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "997"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e5-BWV2iwSP20rbxvrdbAxKqSYv1Xg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:33:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"69ba473be4d093c097a364e3\",\n        \"userId\": \"68bb3d7e405460cc1c2c72e2\",\n        \"authTokenId\": {\n            \"_id\": \"69ba473be4d093c097a364e1\",\n            \"tokenId\": \"878f44cf-8435-45da-a8b9-489e5abf1511\",\n            \"expiresAt\": \"2026-04-17T06:33:31.764Z\",\n            \"revoked\": false\n        },\n        \"deviceInfo\": \"PostmanRuntime/7.49.1\",\n        \"ip\": \"::1\",\n        \"userAgent\": \"PostmanRuntime/7.49.1\",\n        \"lastActivityAt\": \"2026-03-18T06:33:31.836Z\",\n        \"expiresAt\": \"2026-04-17T06:33:31.836Z\",\n        \"isActive\": true,\n        \"createdAt\": \"2026-03-18T06:33:31.838Z\",\n        \"updatedAt\": \"2026-03-18T06:33:31.838Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"69ba472ee4d093c097a364dc\",\n        \"userId\": \"68bb3d7e405460cc1c2c72e2\",\n        \"authTokenId\": {\n            \"_id\": \"69ba472ee4d093c097a364da\",\n            \"tokenId\": \"afa6f101-d4be-44b5-bae9-04cca319c3d2\",\n            \"expiresAt\": \"2026-04-17T06:33:18.404Z\",\n            \"revoked\": false\n        },\n        \"deviceInfo\": \"PostmanRuntime/7.51.1\",\n        \"ip\": \"165.227.46.91\",\n        \"userAgent\": \"PostmanRuntime/7.51.1\",\n        \"lastActivityAt\": \"2026-03-18T06:33:18.524Z\",\n        \"expiresAt\": \"2026-04-17T06:33:18.524Z\",\n        \"isActive\": true,\n        \"createdAt\": \"2026-03-18T06:33:18.528Z\",\n        \"updatedAt\": \"2026-03-18T06:33:18.528Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Revoke Session",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sessions/:sessionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sessions",
+								":sessionId"
+							],
+							"variable": [
+								{
+									"key": "sessionId",
+									"value": "69ba473be4d093c097a364e3"
+								}
+							]
+						},
+						"description": "Revoke a specific session. Replace sessionId with actual session ID from List Sessions."
+					},
+					"response": [
+						{
+							"name": "Revoke Session",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sessions/:sessionId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sessions",
+										":sessionId"
+									],
+									"variable": [
+										{
+											"key": "sessionId",
+											"value": "69ba473be4d093c097a364e3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "29"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "60"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-BttWqQp+CRLAPk/ohuoqYNYSls8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:34:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Session revoked successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Terminate All Sessions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sessions/terminate-all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sessions",
+								"terminate-all"
+							]
+						},
+						"description": "Terminate all sessions for the current user."
+					},
+					"response": [
+						{
+							"name": "Terminate All Sessions",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sessions/terminate-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sessions",
+										"terminate-all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "30;w=60"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "30"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "26"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "6"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40-IlX3HzltqqC29lJ6fVRTPc7LSQs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Mar 2026 06:35:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"All sessions terminated successfully\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/auth/api/v1"
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "refreshTokenId",
+			"value": "",
+			"description": {
+				"content": "From Login - used for Refresh and Logout",
+				"type": "text/plain"
+			}
+		}
+	]
+}
